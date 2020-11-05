@@ -40,7 +40,7 @@ function onConnected() {
     stompClient.send("/app/chat.addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
-    )
+    );
 
     connectingElement.classList.add('hidden');
 }
@@ -58,7 +58,8 @@ function sendMessage(event) {
         var chatMessage = {
             sender: username,
             content: messageInput.value,
-            type: 'CHAT'
+            type: 'CHAT',
+            time: new Date()
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
@@ -97,8 +98,16 @@ function onMessageReceived(payload) {
     var textElement = document.createElement('p');
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
-
     messageElement.appendChild(textElement);
+
+    if (message.type === 'CHAT') {
+        var dateElement = document.createElement('div');
+        var now = new Date(message.time);
+        var d = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        var messageDate = document.createTextNode(d);
+        dateElement.appendChild(messageDate);
+        messageElement.appendChild(dateElement);
+    }
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
