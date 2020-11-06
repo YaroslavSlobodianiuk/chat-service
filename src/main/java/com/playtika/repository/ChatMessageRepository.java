@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ChatMessageRepository extends CrudRepository<ChatMessage, Long> {
 
-    @Query("select content from user_messages where sender= ?1 and content = ?2 and time >= ?3")
+    @Query("select id, content, sender, time, type from user_messages where sender= ?1 and content = ?2 and time >= ?3")
     List<ChatMessage> findMessageByData(String user, String data, Timestamp time);
 
 }
