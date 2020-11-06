@@ -1,6 +1,7 @@
 package com.playtika.controller;
 
 import com.playtika.model.ChatMessage;
+import com.playtika.service.ChatUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class WebSocketEventListener {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
+    @Autowired
+    private ChatUserService userService;
+
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         logger.info("Received a new web socket connection");
@@ -36,6 +40,7 @@ public class WebSocketEventListener {
             chatMessage.setType(ChatMessage.MessageType.LEAVE);
             chatMessage.setSender(username);
 
+            userService.deleteUser(username);
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
