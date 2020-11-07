@@ -1,7 +1,6 @@
 package com.playtika.controller;
 
 import com.playtika.model.ChatMessage;
-import com.playtika.repository.ChatMessageRepository;
 import com.playtika.service.ChatMessageService;
 import com.playtika.service.ChatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,13 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class ChatController {
 
     @Autowired
@@ -42,8 +41,8 @@ public class ChatController {
         return chatMessage;
     }
 
-    @PostMapping("/getMessage")
-    public List<ChatMessage> getMessagesByEnteredData(@RequestParam String userName, @RequestParam String data) {
+    @PostMapping("/getMessages")
+    public List<ChatMessage> getMessagesByEnteredData(@RequestParam(name = "userName") String userName, @RequestParam(name = "data") String data) {
         return messageService.getMessagesByEnteredData(userName, data);
     }
 

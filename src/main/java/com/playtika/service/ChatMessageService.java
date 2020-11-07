@@ -31,6 +31,6 @@ public class ChatMessageService {
         if (!user.isPresent()) {
             return Collections.emptyList();
         }
-        return messageRepository.findMessageByData(userName, data, user.get().getJoinTime());
+        return messageRepository.findMessageByData(data, user.get().getJoinTime());
     }
 }
