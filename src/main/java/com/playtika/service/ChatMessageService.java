@@ -1,6 +1,5 @@
 package com.playtika.service;
 
-import com.playtika.exception.SearchMessagesTransactionException;
 import com.playtika.model.ChatMessage;
 import com.playtika.model.ChatUser;
 import com.playtika.repository.ChatMessageRepository;
@@ -25,7 +24,7 @@ public class ChatMessageService {
         messageRepository.save(chatMessage);
     }
 
-    @Transactional(rollbackFor = SearchMessagesTransactionException.class)
+    @Transactional()
     public List<ChatMessage> getMessagesByEnteredData(String userName, String data) {
         Optional<ChatUser> user = userRepository.findById(userName);
         if (!user.isPresent()) {

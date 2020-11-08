@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
-@Entity(name = "users")
 @Data
+@Entity(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatUser {

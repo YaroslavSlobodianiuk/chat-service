@@ -3,9 +3,7 @@ package com.playtika;
 import com.playtika.model.ChatMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Timestamp;
@@ -13,13 +11,8 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = ChatServiceApplication.class
-)
-@TestPropertySource(locations = {"classpath:application-test.properties"})
+@SpringBootTest
 @RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
 public class ChatMessageTest {
 
     @Test
@@ -31,7 +24,6 @@ public class ChatMessageTest {
         assertEquals("hi", message.getContent());
         assertEquals("oleg", message.getSender());
         assertEquals(Timestamp.valueOf("2020-11-06 18:59:45.425000"), message.getTime());
-
 
     }
 
